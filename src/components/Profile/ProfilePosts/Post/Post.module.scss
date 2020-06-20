@@ -1,0 +1,40 @@
+.post {
+	display: grid;
+	grid-template-rows: auto;
+	grid-template-columns: 60px auto;
+	grid-column-gap: 15px;
+	margin-bottom: 30px;
+
+	&:last-child {
+		margin-bottom: 0
+	}
+}
+
+.avatar {
+	width: 60px;
+	height: 60px;
+	border-radius: 50%
+}
+
+.content {
+	display: grid;
+	grid-row-gap: 3px
+}
+
+.name {
+	font-weight: bold;
+	text-decoration: underline
+}
+
+.likes {
+	background-color: transparent;
+	border: none;
+	padding: 0;
+	color: #4bc4ff;
+	cursor: pointer;
+	transition: all ease-in-out 300ms;
+
+	&:hover {
+		color: #86d7ff
+	}
+}

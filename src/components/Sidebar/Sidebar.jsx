@@ -4,7 +4,7 @@ import s from './Sidebar.module.scss'
 
 const Sidebar = ( props ) => {
     return (
-        <aside className = {s.aside}>
+        <aside className = {s.sidebar}>
         	<SidebarNavigation />
         </aside>
     )

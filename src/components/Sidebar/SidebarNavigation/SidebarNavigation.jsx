@@ -7,12 +7,22 @@ const SidebarNavigation = ( props ) => {
         <nav className = {s['sidebar-navigation']}>
         	<ul className = {s['sidebar-navigation-menu']}>
         		<li className = {s['sidebar-navigation-menu__item']}>
-        			<NavLink to = "/profile">Мой профиль</NavLink>
-        			<NavLink to = "/dialogs">Сообщения</NavLink>
-        			<NavLink to = "/users">Пользователи</NavLink>
-        			<NavLink to = "/news">Новости</NavLink>
-        			<NavLink to = "/music">Моя музыка</NavLink>
-        			<NavLink to = "/settings">Настройки</NavLink>
+        			<NavLink className = {s['sidebar-navigation-menu__link']} to = "/profile">Мой профиль</NavLink>
+                </li>
+                <li className = {s['sidebar-navigation-menu__item']}>
+        			<NavLink className = {s['sidebar-navigation-menu__link']} to = "/dialogs">Сообщения</NavLink>
+                </li>
+                <li className = {s['sidebar-navigation-menu__item']}>
+        			<NavLink className = {s['sidebar-navigation-menu__link']} to = "/users">Пользователи</NavLink>
+                </li>
+                <li className = {s['sidebar-navigation-menu__item']}>
+        			<NavLink className = {s['sidebar-navigation-menu__link']} to = "/news">Новости</NavLink>
+                </li>
+                <li className = {s['sidebar-navigation-menu__item']}>
+        			<NavLink className = {s['sidebar-navigation-menu__link']} to = "/music">Моя музыка</NavLink>
+                </li>
+                <li className = {s['sidebar-navigation-menu__item']}>
+        			<NavLink className = {s['sidebar-navigation-menu__link']} to = "/settings">Настройки</NavLink>
         		</li>
         	</ul>
         </nav>

@@ -15,28 +15,29 @@ import Settings from './components/Settings/Settings'
 function App() {
     return (
         <div className = "app-wrapper">
-            <Header />
-            <Sidebar />
+            <div className = "container">
+                <Header />
+                <Sidebar />
 
-            <div className = "main">
-                <Route exact path = "/" render = {() => (
-                    <Redirect to = "/profile" />
-                )} />
-                <Route path = "/profile" render = {
-                    () => <Profile />
-                } />
-                <Route path = "/dialogs" render = {
-                    () => <Dialogs />
-                } />
-                <Route path = "/users" render = {
-                    () => <Users />
-                } />
-                <Route path = "/news" component = {News} />
-                <Route path = "/music" component = {Music} />
-                <Route path = "/settings" component = {Settings} />
-            </div>
+                <div className = "main">
+                    <Route exact path = "/" render = {() => (
+                        <Redirect to = "/profile" />
+                    )} />
+                    <Route path = "/profile" render = {
+                        () => <Profile />
+                    } />
+                    <Route path = "/dialogs" render = {
+                        () => <Dialogs />
+                    } />
+                    <Route path = "/users" render = {
+                        () => <Users />
+                    } />
+                    <Route path = "/news" component = {News} />
+                    <Route path = "/music" component = {Music} />
+                    <Route path = "/settings" component = {Settings} />
+                </div>
 
-            <Footer />
+                <Footer /></div>
         </div>
     )
 }

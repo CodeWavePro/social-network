@@ -1,0 +1,37 @@
+.info {
+	display: grid;
+	grid-template-areas:
+		'n n'
+		'a f';
+	grid-template-columns: 200px auto;
+	grid-column-gap: 30px;
+	align-items: center
+}
+
+.name {
+	grid-area: n
+}
+
+.avatar {
+	grid-area: a;
+	width: 200px;
+	height: 200px;
+	border-radius: 50%
+}
+
+.fields {
+	grid-area: f
+}
+
+.field {
+	margin-bottom: 5px;
+
+	&:last-child {
+		margin-bottom: 0
+	}
+}
+
+.bold {
+	font-weight: bold;
+	margin-right: 5px
+}
