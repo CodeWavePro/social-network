@@ -3,13 +3,13 @@ import React from 'react'
 import s from './ProfileInfo.module.scss'
 import avatar from './../../../inc/img/avatar-min.png'
 
-let ProfileInfo = ( props ) => {
+const ProfileInfo = ( props ) => {
 	return (
 		<div className = {s.info}>
 			<h1 className = {s.name}>
 				Andrei Stezenko
 			</h1>
-			<img className = {s.avatar} src = {avatar} alt = "Kira Kulebiakina" />
+			<img className = {s.avatar} src = {avatar} alt = "Andrei Stezenko" />
 			<div className = {s.fields}>
 				<div className = {s.field}>
 					<span className = {s.bold}>День рождения:</span>

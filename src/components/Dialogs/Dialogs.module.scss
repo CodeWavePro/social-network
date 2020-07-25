@@ -1,0 +1,26 @@
+.dialogs {
+	display: grid;
+	grid-template-columns: 200px auto;
+	grid-column-gap: 30px
+}
+
+.dialogs-list__item {
+	display: block !important;
+	cursor: pointer;
+	color: #323232;
+	text-decoration: none;
+
+	&:hover {
+		color: #ff6000
+	}
+
+	&:active,
+	&:visited,
+	&:focus {
+		color: #323232
+	}
+}
+
+.active {
+	color: #ff6000 !important
+}

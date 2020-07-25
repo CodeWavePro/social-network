@@ -2,19 +2,21 @@ import React from 'react'
 import s from './Post.module.scss'
 import avatar from './../../../../inc/img/avatar-min.png'
 
-let Post = ( props ) => {
+const Post = ( props ) => {
 	return (
 		<div className = {s.post}>
 			<img className = {s.avatar} src = {avatar} alt = "Profile avatar" />
 			<div className = {s.content}>
 				<div className = {s.name}>
-					Andrei Stezenko
+					{props.name}
 				</div>
 				<div className = {s.text}>
-					OLOLO
+					{props.postText}
 				</div>
 				<div className = {s.likes}>
-					<button className = {s.likes} title = "Likes count">14 Likes</button>
+					<button className = {s.likes} title = "Likes count">
+						{props.likesCount} Likes
+					</button>
 				</div>
 			</div>
 		</div>

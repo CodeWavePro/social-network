@@ -18,9 +18,10 @@ code {
 
 a {
 	&:focus,
-	&:active,
 	&:visited,
-	&:hover {
+	&:hover,
+	&:active {
+		display: inline-block;
 		text-decoration: none;
 		color: #ff6000;
 		outline: none !important

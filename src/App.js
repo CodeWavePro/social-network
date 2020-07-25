@@ -12,7 +12,7 @@ import News from './components/News/News'
 import Music from './components/Music/Music'
 import Settings from './components/Settings/Settings'
 
-function App() {
+const App = ( props ) => {
     return (
         <div className = "app-wrapper">
             <div className = "container">
@@ -24,10 +24,13 @@ function App() {
                         <Redirect to = "/profile" />
                     )} />
                     <Route path = "/profile" render = {
-                        () => <Profile />
+                        () => <Profile  profilePage = {props.state.profilePage}
+                                        addPost = { props.addPost }
+                                        onNewPostTextChange = { props.onNewPostTextChange } />
                     } />
                     <Route path = "/dialogs" render = {
-                        () => <Dialogs />
+                        () => <Dialogs dialogsData = {props.state.dialogsPage.dialogsData}
+                                       messagesData = {props.state.dialogsPage.messagesData} />
                     } />
                     <Route path = "/users" render = {
                         () => <Users />
@@ -37,7 +40,8 @@ function App() {
                     <Route path = "/settings" component = {Settings} />
                 </div>
 
-                <Footer /></div>
+                <Footer />
+            </div>
         </div>
     )
 }
