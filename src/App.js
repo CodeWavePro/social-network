@@ -24,9 +24,8 @@ const App = ( props ) => {
                         <Redirect to = "/profile" />
                     )} />
                     <Route path = "/profile" render = {
-                        () => <Profile  profilePage = {props.state.profilePage}
-                                        addPost = { props.addPost }
-                                        onNewPostTextChange = { props.onNewPostTextChange } />
+                        () => <Profile  profilePage = { props.state.profilePage }
+                                        dispatch = { props.dispatch } />
                     } />
                     <Route path = "/dialogs" render = {
                         () => <Dialogs dialogsData = {props.state.dialogsPage.dialogsData}

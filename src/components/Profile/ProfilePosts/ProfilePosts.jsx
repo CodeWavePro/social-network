@@ -10,11 +10,16 @@ const ProfilePosts = ( props ) => {
 
 	let onNewPostTextChange = () => {
 		let newText = newPostElement.current.value
-		props.onNewPostTextChange( newText )
+		let action = {
+			type: 'ON-NEW-POST-TEXT-CHANGE',
+			newPostText: newText
+		}
+		props.dispatch( action )
 	}
 
 	let addPost = () => {
-		props.addPost()
+		let action = { type: 'ADD-POST' }
+		props.dispatch( action )
 	}
 
 	return (

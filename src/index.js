@@ -1,7 +1,22 @@
-import './index.scss'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import {BrowserRouter} from 'react-router-dom'
 import * as serviceWorker from './serviceWorker'
-import state from './redux/state'
-import {reRenderEntireTree} from './render'
+import './index.scss'
+import App from './App'
+import store from './redux/store'
 
-reRenderEntireTree( state )
+let reRenderEntireTree = ( state ) => {
+	ReactDOM.render(
+		<React.StrictMode>
+			<BrowserRouter>
+				<App state = { state } dispatch = { store.dispatch.bind( store ) } />
+			</BrowserRouter>
+		</React.StrictMode>,
+		document.getElementById( 'root' )
+	)
+}
+
+reRenderEntireTree( store.getState() )
+store.subscribe( reRenderEntireTree )
 serviceWorker.unregister()
