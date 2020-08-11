@@ -1,14 +1,13 @@
 import React from 'react'
 import ProfileInfo from './ProfileInfo/ProfileInfo'
-import ProfilePosts from './ProfilePosts/ProfilePosts'
+import ProfilePostsContainer from './ProfilePosts/ProfilePostsContainer'
 import s from './Profile.module.scss'
 
 const Profile = ( props ) => {
     return (
         <div className = {s.profile}>
-        	<ProfileInfo />
-			<ProfilePosts	profilePage = {props.profilePage}
-							dispatch = { props.dispatch } />
+        	<ProfileInfo profile = { props.profile } />
+        	<ProfilePostsContainer />
         </div>
     )
 }

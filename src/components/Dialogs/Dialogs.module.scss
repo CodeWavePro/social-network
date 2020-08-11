@@ -1,7 +1,16 @@
 .dialogs {
 	display: grid;
-	grid-template-columns: 200px auto;
-	grid-column-gap: 30px
+	grid-template-columns: 200px minmax(0, 600px);
+	grid-column-gap: 30px;
+	height: 300px;
+	border: 1px solid #c9c9c9;
+	border-radius: 10px;
+	padding: 15px
+}
+
+.dialogs-list,
+.messages {
+	overflow-y: scroll
 }
 
 .dialogs-list__item {
@@ -23,4 +32,8 @@
 
 .active {
 	color: #ff6000 !important
+}
+
+.textarea-wrapper {
+	margin-top: 30px
 }

@@ -1,3 +1,6 @@
+import profileReducer from './profile-reducer'
+import dialogsReducer from './dialogs-reducer'
+
 let store = {
 	_state: {
 		profilePage: {
@@ -16,12 +19,12 @@ let store = {
 			    {id: 3, name: 'Саша'},
 			    {id: 4, name: 'Серёжа'}
 			],
-
 			messagesData: [
 			    {id: 1, messageText: 'Привяу'},
 			    {id: 2, messageText: 'Чё как'},
 			    {id: 3, messageText: 'Алё'}
-			]
+			],
+			newMessageText: ''
 		}
 	},
 	_callSubscriber() {
@@ -36,29 +39,10 @@ let store = {
 	},
 
 	dispatch( action ) {
-		switch ( action.type ) {
-			case 'ADD-POST':
-				let text = this._state.profilePage.newPostText
+		this._state.profilePage = profileReducer( this._state.profilePage, action )
+		this._state.dialogsPage = dialogsReducer( this._state.dialogsPage, action )
 
-				if ( text != '' ) {
-					let newPostObject = {
-						id			: 4,
-						name		: 'Andrei Stezenko',
-						postText	: text,
-						likesCount	: 0
-					}
-					this._state.profilePage.postsData.push( newPostObject )
-					this._state.profilePage.newPostText = ''
-					this._callSubscriber( this._state )
-				}
-				break
-
-			case 'ON-NEW-POST-TEXT-CHANGE':
-				this._state.profilePage.newPostText = action.newPostText
-				this._callSubscriber( this._state )
-				break
-		}
+		this._callSubscriber( this._state )
 	}
 }
-
 export default store

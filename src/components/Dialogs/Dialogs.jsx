@@ -21,21 +21,42 @@ const MessageItem = ( props ) => {
 }
 
 const Dialogs = ( props ) => {
-	let dialogs = props.dialogsData.map( d => <DialogItem key = {d.id} name = {d.name} id = {d.id} /> )
-	let messages = props.messagesData.map( m => <MessageItem key = {m.id} messageText = {m.messageText} /> )
+	let dialogs = props.dialogsPage.dialogsData.map( d => <DialogItem key = {d.id} name = {d.name} id = {d.id} /> )
+	let messages = props.dialogsPage.messagesData.map( m => <MessageItem key = {m.id} messageText = {m.messageText} /> )
+
+	let onNewDialogsMessageTextChange = ( e ) => {
+		let newMessageText = e.target.value
+		props.onNewDialogsMessageTextChange( newMessageText )
+	}
+
+	let sendNewDialogsMessage = () => {
+		props.sendNewDialogsMessage()
+	}
 
     return (
-        <div className = {s.dialogs}>
-        	<div className = {s['dialogs-list']}>
-				{dialogs}
-			</div>
+    	<div>
+	        <div className = {s.dialogs}>
+	        	<div className = {s['dialogs-list']}>
+					{dialogs}
+				</div>
 
-			<div className = {s.messeges}>
-				<div className = {s['messages-items']}>
-					{messages}
+				<div className = {s.messages}>
+					<div className = {s['messages-items']}>
+						{messages}
+					</div>
+				</div>
+	        </div>
+
+	        <div className = {s['textarea-wrapper']}>
+				<textarea	className = {'textarea ' + s.textarea}
+							value = {props.dialogsPage.newMessageText}
+							onChange = {onNewDialogsMessageTextChange}
+							placeholder = "Введите новое сообщение"></textarea>
+				<div className = {s['button-wrapper']}>
+					<button className = {'button ' + s.button} onClick = {sendNewDialogsMessage}>Отправить</button>
 				</div>
 			</div>
-        </div>
+		</div>
     )
 }
 

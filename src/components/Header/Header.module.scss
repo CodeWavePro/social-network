@@ -1,5 +1,8 @@
 .header {
+	display: grid;
 	grid-area: h;
+	grid-template-columns: 50% 50%;
+	align-items: center;
 	background-color: transparent;
 	color:  #f9f9f9;
 	padding: 5px 0 0
@@ -11,4 +14,15 @@
 
 .header-logo__img {
 	height: 100%
+}
+
+.authorization {
+	display: grid;
+	justify-self: end;
+	color: #323232
+}
+
+.authorization__link {
+	color: #ff6000;
+	text-decoration: none
 }
