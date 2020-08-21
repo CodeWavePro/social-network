@@ -1,5 +1,7 @@
 import React from 'react'
-import {Route, Redirect} from 'react-router-dom'
+import { Route, Redirect } from 'react-router-dom'
+
+import Login from './components/Login/Login'
 
 import HeaderContainer from './components/Header/HeaderContainer'
 import Sidebar from './components/Sidebar/Sidebar'
@@ -20,9 +22,12 @@ const App = ( props ) => {
                 <Sidebar />
 
                 <div className = "main">
-                    <Route exact path = "/" render = {() => (
-                        <Redirect to = "/profile" />
-                    )} />
+                    <Route path = "/login" render = {
+                        () => <Login />
+                    } />
+                    <Route exact path = "/" render = {
+                        () => <Redirect to = "/profile" />
+                    } />
                     <Route path = "/profile/:userId?" render = {
                         () => <ProfileContainer />
                     } />
@@ -32,9 +37,9 @@ const App = ( props ) => {
                     <Route path = "/users" render = {
                         () => <UsersContainer />
                     } />
-                    <Route path = "/news" component = {News} />
-                    <Route path = "/music" component = {Music} />
-                    <Route path = "/settings" component = {Settings} />
+                    <Route path = "/news" component = { News } />
+                    <Route path = "/music" component = { Music } />
+                    <Route path = "/settings" component = { Settings } />
                 </div>
 
                 <Footer />

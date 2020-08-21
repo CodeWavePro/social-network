@@ -1,5 +1,5 @@
 import React from 'react'
-import {NavLink} from 'react-router-dom'
+import { NavLink, Redirect } from 'react-router-dom'
 import s from './Dialogs.module.scss'
 
 const DialogItem = ( props ) => {
@@ -21,6 +21,10 @@ const MessageItem = ( props ) => {
 }
 
 const Dialogs = ( props ) => {
+	if ( ! props.isAuth ) {
+		return <Redirect to = "/login" />
+	}
+
 	let dialogs = props.dialogsPage.dialogsData.map( d => <DialogItem key = {d.id} name = {d.name} id = {d.id} /> )
 	let messages = props.dialogsPage.messagesData.map( m => <MessageItem key = {m.id} messageText = {m.messageText} /> )
 

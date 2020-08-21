@@ -1,3 +1,5 @@
+import { profileAPI } from '../api/api'
+
 // Profile page constants.
 const ADD_POST = 'ADD-POST'
 const ON_NEW_POST_TEXT_CHANGE = 'ON-NEW-POST-TEXT-CHANGE'
@@ -64,3 +66,14 @@ export const onNewPostTextChange = ( newText ) => ( { type: ON_NEW_POST_TEXT_CHA
 export const addPost = () => ( { type: ADD_POST } )
 export const setUserProfileData = ( profile ) => ( { type: SET_USER_PROFILE_DATA, profile } )
 export const profileToggleIsFetching = ( isFetching ) => ( { type: PROFILE_TOGGLE_IS_FETCHING, isFetching } )
+
+export const getProfileData = ( userId ) => {
+	return ( dispatch ) => {
+		dispatch( profileToggleIsFetching( true ) )
+
+		profileAPI.getData( userId ).then( data => {
+			dispatch( setUserProfileData( data ) )
+			dispatch( profileToggleIsFetching( false ) )
+		} )
+	}
+}

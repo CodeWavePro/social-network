@@ -1,6 +1,7 @@
 import React from 'react'
 import Post from './Post/Post'
 import s from './ProfilePosts.module.scss'
+import Preloader from '../../Preloader/Preloader'
 
 const ProfilePosts = ( props ) => {
 	let posts = props.profilePage.postsData.map(
@@ -22,7 +23,11 @@ const ProfilePosts = ( props ) => {
 	return (
 		<div className = { s.posts }>
 			<h2 className = { s.title }>
-				Все записи Andrei Stezenko
+				{
+					props.profilePage.profile
+						? 'Все записи ' + props.profilePage.profile.fullName
+						: <Preloader />
+				}
 			</h2>
 
 			<div className = { s['add-post'] }>
