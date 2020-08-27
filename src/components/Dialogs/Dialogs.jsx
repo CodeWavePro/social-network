@@ -2,6 +2,8 @@ import React from 'react'
 import { NavLink, Redirect } from 'react-router-dom'
 import { reduxForm, Field } from 'redux-form'
 import s from './Dialogs.module.scss'
+import { required, maxLengthCreator } from '../../utils/validators/validators'
+import { Textarea } from '../common/FormControls/FormControls'
 
 const DialogItem = ( props ) => {
 	return (
@@ -21,6 +23,8 @@ const MessageItem = ( props ) => {
 	)
 }
 
+const maxLength300 = maxLengthCreator( 300 )
+
 const AddMessageForm = props => {
 	const { handleSubmit } = props
 
@@ -29,8 +33,9 @@ const AddMessageForm = props => {
 			<div className = { s['form-field'] }>
     			<Field	name = "newMessageText"
     					className = { 'textarea ' + s.textarea }
-    					component = "textarea"
-    					placeholder = "Введите новое сообщение" />
+    					component = { Textarea }
+    					placeholder = "Введите новое сообщение"
+    					validate = { [required, maxLength300] } />
     		</div>
 			<div className = { s['button-wrapper'] }>
 				<button	className = { 'button ' + s.button }

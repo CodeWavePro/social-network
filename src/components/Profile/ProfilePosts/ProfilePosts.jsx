@@ -3,6 +3,10 @@ import { reduxForm, Field } from 'redux-form'
 import Post from './Post/Post'
 import s from './ProfilePosts.module.scss'
 import Preloader from '../../Preloader/Preloader'
+import { required, maxLengthCreator } from '../../../utils/validators/validators'
+import { Textarea } from '../../common/FormControls/FormControls'
+
+const maxLength300 = maxLengthCreator( 300 )
 
 const ProfileAddPostForm = props => {
 	const { handleSubmit } = props
@@ -11,8 +15,9 @@ const ProfileAddPostForm = props => {
 		<form id = "add-post" className = { s['add-post'] } onSubmit = { handleSubmit( props.onSubmit ) }>
 			<Field	name = "newPostText"
 					className = "textarea"
-					component = "textarea"
-					placeholder = "Добавить новую запись" />
+					component = { Textarea }
+					placeholder = "Добавить новую запись"
+					validate = { [required, maxLength300] } />
 			<button className = "button"
 					title = "Добавить новую запись"
 					type = "submit"
