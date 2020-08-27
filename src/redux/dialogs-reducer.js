@@ -1,5 +1,4 @@
 // Dialogs page constants.
-const ON_NEW_DIALOGS_MESSAGE_TEXT_CHANGE = 'ON-NEW-DIALOGS-MESSAGE-TEXT-CHANGE'
 const SEND_NEW_DIALOGS_MESSAGE = 'SEND-NEW-DIALOGS-MESSAGE'
 
 let initialState = {
@@ -13,20 +12,13 @@ let initialState = {
 	    {id: 1, messageText: 'Привяу'},
 	    {id: 2, messageText: 'Чё как'},
 	    {id: 3, messageText: 'Алё'}
-	],
-	newMessageText: ''
+	]
 }
 
 const dialogsReducer = ( state = initialState, action ) => {
 	switch ( action.type ) {
-		case ON_NEW_DIALOGS_MESSAGE_TEXT_CHANGE:
-			return {
-				...state,
-				newMessageText: action.newMessageText
-			}
-
 		case SEND_NEW_DIALOGS_MESSAGE:
-			let message = state.newMessageText
+			let message = action.newMessageText
 
 			if ( message !== '' ) {
 				let newDialogsMessageObject = {
@@ -48,10 +40,4 @@ const dialogsReducer = ( state = initialState, action ) => {
 }
 export default dialogsReducer
 
-export const onNewDialogsMessageTextChangeAC = ( newMessageText ) => {
-	return {
-		type			: ON_NEW_DIALOGS_MESSAGE_TEXT_CHANGE,
-		newMessageText	: newMessageText
-	}
-}
-export const sendNewDialogsMessageAC = () => ({type: SEND_NEW_DIALOGS_MESSAGE})
+export const sendNewDialogsMessageAC = ( newMessageText ) => ( { type: SEND_NEW_DIALOGS_MESSAGE, newMessageText } )

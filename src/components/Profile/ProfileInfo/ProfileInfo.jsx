@@ -2,6 +2,7 @@ import React from 'react'
 import Preloader from '../../Preloader/Preloader'
 import s from './ProfileInfo.module.scss'
 import avatar from './../../../inc/img/avatar-min.png'
+import ProfileStatus from './ProfileStatus/ProfileStatus'
 
 const ProfileInfo = ( props ) => {
 	if ( !props.profile ) {
@@ -13,23 +14,50 @@ const ProfileInfo = ( props ) => {
 			<h1 className = { s.name }>
 				{ props.profile.fullName }
 			</h1>
-			<img className = { s.avatar } src = { props.profile.photos.large ? props.profile.photos.large : avatar } alt = "Andrei Stezenko" />
+
+			<img	className = { s.avatar }
+					src = { props.profile.photos.large ? props.profile.photos.large : avatar }
+					alt = { props.profile.fullName } />
+
 			<div className = { s.fields }>
+				<ProfileStatus status = { props.status } updateStatus = { props.updateStatus } />
+
 				<div className = { s.field }>
-					<span className = { s.bold }>День рождения:</span>
-					<span className = { s.value }>25.06.1989</span>
+					<span className = { s.bold }>В поисках работы:</span>
+					<span className = { s.value }>
+						{ props.profile.lookingForAJob ? 'Да' : 'Нет' }
+					</span>
 				</div>
 				<div className = { s.field }>
-					<span className = { s.bold }>Город:</span>
-					<span className = { s.value }>Горловка</span>
+					<span className = { s.bold }>Описание для работодателя:</span>
+					<span className = { s.value }>
+						{
+							props.profile.lookingForAJobDescription
+								? props.profile.lookingForAJobDescription
+								: 'Отсутствует'
+						}
+					</span>
 				</div>
 				<div className = { s.field }>
-					<span className = { s.bold }>Телефон:</span>
-					<span className = { s.value }>+38(071)999-99-99</span>
-				</div>
-				<div className = { s.field }>
-					<span className = { s.bold }>Школа:</span>
-					<span className = { s.value }>Лицей №47 г. Горловка</span>
+					<span className = { s.bold }>Контакты:</span>
+					<span className = { s.value }>
+						{
+							(
+								() => {
+									if ( ! props.profile.contacts.facebook
+										&& ! props.profile.contacts.github
+										&& ! props.profile.contacts.instagram
+										&& ! props.profile.contacts.mainLink
+										&& ! props.profile.contacts.twitter
+										&& ! props.profile.contacts.vk
+										&& ! props.profile.contacts.website
+										&& ! props.profile.contacts.youtube ) {
+										return 'Отсутствуют'
+									}
+								}
+							)()
+						}
+					</span>
 				</div>
 			</div>
 		</div>

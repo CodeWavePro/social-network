@@ -1,7 +1,29 @@
 import React from 'react'
+import { reduxForm, Field } from 'redux-form'
 import Post from './Post/Post'
 import s from './ProfilePosts.module.scss'
 import Preloader from '../../Preloader/Preloader'
+
+const ProfileAddPostForm = props => {
+	const { handleSubmit } = props
+
+	return (
+		<form id = "add-post" className = { s['add-post'] } onSubmit = { handleSubmit( props.onSubmit ) }>
+			<Field	name = "newPostText"
+					className = "textarea"
+					component = "textarea"
+					placeholder = "Добавить новую запись" />
+			<button className = "button"
+					title = "Добавить новую запись"
+					type = "submit"
+					form = "add-post">
+				Добавить запись
+			</button>
+		</form>
+	)
+}
+
+const ProfileAddPostReduxForm = reduxForm( { form: 'profile-add-post' } )( ProfileAddPostForm )
 
 const ProfilePosts = ( props ) => {
 	let posts = props.profilePage.postsData.map(
@@ -11,13 +33,8 @@ const ProfilePosts = ( props ) => {
 					likesCount = { p.likesCount } />
 	)
 
-	let onNewPostTextChange = ( e ) => {
-		let newText = e.target.value
-		props.onNewPostTextChange( newText )
-	}
-
-	let addPost = () => {
-		props.addPost()
+	const onFormSubmit = ( formData ) => {
+		props.addPost( formData.newPostText )
 	}
 
 	return (
@@ -30,17 +47,7 @@ const ProfilePosts = ( props ) => {
 				}
 			</h2>
 
-			<div className = { s['add-post'] }>
-				<textarea	className = "textarea"
-							placeholder = "Введите новое сообщение"
-							value = { props.profilePage.newPostText }
-							onChange = { onNewPostTextChange } />
-				<button className = "button"
-						title = "Добавить новую запись"
-						onClick = { addPost }>
-					Добавить запись
-				</button>
-			</div>
+			<ProfileAddPostReduxForm { ...props } onSubmit = { onFormSubmit } />
 
 			{ posts }
 		</div>

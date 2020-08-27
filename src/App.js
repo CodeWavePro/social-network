@@ -22,7 +22,7 @@ const App = ( props ) => {
                 <Sidebar />
 
                 <div className = "main">
-                    <Route path = "/login" render = {
+                    <Route exact path = "/login" render = {
                         () => <Login />
                     } />
                     <Route exact path = "/" render = {

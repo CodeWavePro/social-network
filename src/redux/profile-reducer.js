@@ -2,9 +2,9 @@ import { profileAPI } from '../api/api'
 
 // Profile page constants.
 const ADD_POST = 'ADD-POST'
-const ON_NEW_POST_TEXT_CHANGE = 'ON-NEW-POST-TEXT-CHANGE'
 const SET_USER_PROFILE_DATA = 'SET-USER-PROFILE-DATA'
 const PROFILE_TOGGLE_IS_FETCHING = 'PROFILE-TOGGLE-IS-FETCHING'
+const SET_STATUS = 'SET-STATUS'
 
 let initialState = {
 	profile			: null,
@@ -14,19 +14,14 @@ let initialState = {
 	    {id: 3, name: 'Andrei Stezenko', postText: 'ОЛОЛОЛОЛОЛОЛОЛО', likesCount: 7}
 	],
 	newPostText		: '',
-	isFetching		: false
+	isFetching		: false,
+	status			: ''
 }
 
 const profileReducer = ( state = initialState, action ) => {
 	switch ( action.type ) {
-		case ON_NEW_POST_TEXT_CHANGE:
-			return {
-				...state,
-				newPostText: action.newPostText
-			}
-
 		case ADD_POST:			
-			let text = state.newPostText
+			let text = action.newPostText
 
 			if ( text !== '' ) {
 				let newPostObject = {
@@ -56,16 +51,22 @@ const profileReducer = ( state = initialState, action ) => {
 				isFetching: action.isFetching
 			}
 
+		case SET_STATUS:
+			return {
+				...state,
+				status: action.status
+			}
+
 		default:
 			return state
 	}
 }
 export default profileReducer
 
-export const onNewPostTextChange = ( newText ) => ( { type: ON_NEW_POST_TEXT_CHANGE, newPostText: newText } )
-export const addPost = () => ( { type: ADD_POST } )
-export const setUserProfileData = ( profile ) => ( { type: SET_USER_PROFILE_DATA, profile } )
-export const profileToggleIsFetching = ( isFetching ) => ( { type: PROFILE_TOGGLE_IS_FETCHING, isFetching } )
+export const addPost = ( newPostText ) => ( { type: ADD_POST, newPostText } )
+const setUserProfileData = ( profile ) => ( { type: SET_USER_PROFILE_DATA, profile } )
+const profileToggleIsFetching = ( isFetching ) => ( { type: PROFILE_TOGGLE_IS_FETCHING, isFetching } )
+const setStatus = ( status ) => ( { type: SET_STATUS, status } )
 
 export const getProfileData = ( userId ) => {
 	return ( dispatch ) => {
@@ -74,6 +75,33 @@ export const getProfileData = ( userId ) => {
 		profileAPI.getData( userId ).then( data => {
 			dispatch( setUserProfileData( data ) )
 			dispatch( profileToggleIsFetching( false ) )
+		} )
+	}
+}
+
+export const getStatus = ( userId ) => {
+	return ( dispatch ) => {
+		dispatch( profileToggleIsFetching( true ) )
+
+		profileAPI.getStatus( userId ).then( data => {
+			dispatch( setStatus( data ) )
+			dispatch( profileToggleIsFetching( false ) )
+		} )
+	}
+}
+
+export const updateStatus = ( status ) => {
+	return ( dispatch ) => {
+		dispatch( profileToggleIsFetching( true ) )
+
+		profileAPI.updateStatus( status ).then( data => {
+			if ( data.resultCode === 0 ) {
+				dispatch( setStatus( status ) )
+				dispatch( profileToggleIsFetching( false ) )
+			}	else {
+				console.error( 'UPDATING STATUS ERROR!!!' )
+				dispatch( profileToggleIsFetching( false ) )
+			}
 		} )
 	}
 }
