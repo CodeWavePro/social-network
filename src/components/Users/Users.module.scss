@@ -64,7 +64,10 @@
 
 .pagination {
 	text-align: center;
-	margin-bottom: 30px
+	margin-bottom: 30px;
+	width: 100%;
+	overflow: hidden;
+	text-align: center
 }
 
 .page {

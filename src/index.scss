@@ -80,7 +80,8 @@ button {
 .main {
 	position: relative;
 	grid-area: c;
-	padding: 50px 0
+	padding: 50px 0;
+	max-width: 855px
 }
 
 .input {
