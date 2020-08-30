@@ -36,6 +36,8 @@ const LoginForm = ( props ) => {
                         type = "checkbox" /> Запомнить меня
     		</div>
     		<div className = { s['form-field'] }>
+                { props.error && <div className = { s['form-error'] }>{ props.error }</div> }
+
     			<button type = "submit" form = "login-form" className = "button">
     				Войти
     			</button>

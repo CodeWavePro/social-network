@@ -1,4 +1,5 @@
 import { authAPI } from '../api/api'
+import { stopSubmit } from 'redux-form'
 
 // Authorization constants.
 const SET_AUTH_USER_DATA = 'SET-AUTH-USER-DATA'
@@ -39,7 +40,7 @@ export const setAuthUserData = ( userId, email, login, isAuth ) => (
 
 export const authMe = () => {
 	return ( dispatch ) => {
-		authAPI.authMe().then( data => {
+		return authAPI.authMe().then( data => {
             if ( data.resultCode === 0 ) {
                 dispatch( setAuthUserData( data.data.id, data.data.email, data.data.login, true ) )
             }
@@ -52,6 +53,14 @@ export const login = ( email, password, rememberMe = false ) => {
 		authAPI.login( email, password, rememberMe ).then( data => {
             if ( data.resultCode === 0 ) {
                 dispatch( authMe() )
+            }	else {
+            	let errorMessage = data.messages.length > 0 ? data.messages[0] : 'Ошибка'
+            	dispatch( stopSubmit(
+            		'login',
+            		{
+            			_error: errorMessage
+            		}
+            	) )
             }
         } )
 	}
