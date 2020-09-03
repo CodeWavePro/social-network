@@ -35,6 +35,9 @@ class App extends Component {
                     <Sidebar />
 
                     <div className = "main">
+                        <Route exact path = "/" render = {
+                            () => <Redirect to = "/news" />
+                        } />
                         <Route path = "/dialogs" render = {
                             () => <DialogsContainer />
                         } />

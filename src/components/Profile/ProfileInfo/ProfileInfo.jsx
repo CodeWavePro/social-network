@@ -2,7 +2,7 @@ import React from 'react'
 import Preloader from '../../Preloader/Preloader'
 import s from './ProfileInfo.module.scss'
 import avatar from './../../../inc/img/avatar-min.png'
-import ProfileStatus from './ProfileStatus/ProfileStatus'
+import ProfileStatusWithHooks from './ProfileStatus/ProfileStatusWithHooks'
 
 const ProfileInfo = ( props ) => {
 	if ( !props.profile ) {
@@ -20,7 +20,7 @@ const ProfileInfo = ( props ) => {
 					alt = { props.profile.fullName } />
 
 			<div className = { s.fields }>
-				<ProfileStatus status = { props.status } updateStatus = { props.updateStatus } />
+				<ProfileStatusWithHooks status = { props.status } updateStatus = { props.updateStatus } />
 
 				<div className = { s.field }>
 					<span className = { s.bold }>В поисках работы:</span>
