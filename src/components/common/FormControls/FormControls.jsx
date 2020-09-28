@@ -1,14 +1,16 @@
 import React from 'react'
+import { Field } from 'redux-form'
 import s from './FormControls.module.scss'
+import loginStyles from '../../Login/Login.module.scss'
 
-const FormControl = ( { input, meta, child, ...props } ) => {
-	let hasError = meta.touched && meta.error
+const FormControl = ( { input, meta: { touched, error }, child, ...props } ) => {
+	let hasError = touched && error
 
 	return (
 		<div className = { s['textarea-wrapper'] }>
 			{ props.children }
 			<div className = { s['error-text'] }>
-				{ hasError && meta.error }
+				{ hasError && error }
 			</div>
 		</div>
 	)
@@ -22,4 +24,17 @@ export const Textarea = props => {
 export const Input = props => {
 	const { input, meta, child, ...restProps } = props
 	return <FormControl { ...props }><input { ...input } { ...restProps } /></FormControl>
+}
+
+export const createField = ( placeholder, name, className, validators, component, props = {}, text = '' ) => {
+	return (
+		<div className = { loginStyles['form-field'] }>
+			<Field	name = { name }
+		            className = { className }
+		            component = { component }
+		            placeholder = { placeholder }
+		            validate = { validators }
+		            { ...props } /> { text }
+		</div>
+	)
 }

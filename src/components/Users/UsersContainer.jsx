@@ -1,5 +1,5 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import Preloader from '../Preloader/Preloader'
 import Users from './Users'
 import {
@@ -18,11 +18,13 @@ import {
 
 class UsersContainer extends React.Component {
 	componentDidMount() {
-		this.props.getUsers( this.props.currentPage, this.props.pageSize )
+		const { currentPage, pageSize } = this.props
+		this.props.getUsers( currentPage, pageSize )
 	}
 
 	onPageChanged = ( pagesNumber ) => {
-		this.props.getUsers( pagesNumber, this.props.pageSize )
+		const { pageSize } = this.props
+		this.props.getUsers( pagesNumber, pageSize )
 	}
 
 	render = () => {

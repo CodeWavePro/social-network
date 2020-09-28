@@ -2,6 +2,7 @@ import { profileAPI } from '../api/api'
 
 // Profile page constants.
 const ADD_POST = 'ADD-POST'
+const DELETE_POST = 'DELETE-POST'
 const SET_USER_PROFILE_DATA = 'SET-USER-PROFILE-DATA'
 const PROFILE_TOGGLE_IS_FETCHING = 'PROFILE-TOGGLE-IS-FETCHING'
 const SET_STATUS = 'SET-STATUS'
@@ -39,6 +40,14 @@ const profileReducer = ( state = initialState, action ) => {
 				return state
 			}
 
+		case DELETE_POST:
+			return {
+				...state,
+				postsData: state.postsData.filter(
+					p => p.id !== action.postID
+				)
+			}
+
 		case SET_USER_PROFILE_DATA:
 			return {
 				...state,
@@ -64,44 +73,37 @@ const profileReducer = ( state = initialState, action ) => {
 export default profileReducer
 
 export const addPost = ( newPostText ) => ( { type: ADD_POST, newPostText } )
+export const deletePost = ( postID ) => ( { type: DELETE_POST, postID } )
 const setUserProfileData = ( profile ) => ( { type: SET_USER_PROFILE_DATA, profile } )
 const profileToggleIsFetching = ( isFetching ) => ( { type: PROFILE_TOGGLE_IS_FETCHING, isFetching } )
 const setStatus = ( status ) => ( { type: SET_STATUS, status } )
 
-export const getProfileData = ( userId ) => {
-	return ( dispatch ) => {
-		dispatch( profileToggleIsFetching( true ) )
-
-		profileAPI.getData( userId ).then( data => {
-			dispatch( setUserProfileData( data ) )
-			dispatch( profileToggleIsFetching( false ) )
-		} )
-	}
+export const getProfileData = ( userId ) => async ( dispatch ) => {
+	dispatch( profileToggleIsFetching( true ) )
+	let response = await profileAPI.getData( userId )
+	
+	dispatch( setUserProfileData( response.data ) )
+	dispatch( profileToggleIsFetching( false ) )
 }
 
-export const getStatus = ( userId ) => {
-	return ( dispatch ) => {
-		dispatch( profileToggleIsFetching( true ) )
-
-		profileAPI.getStatus( userId ).then( data => {
-			dispatch( setStatus( data ) )
-			dispatch( profileToggleIsFetching( false ) )
-		} )
-	}
+export const getStatus = ( userId ) => async ( dispatch ) => {
+	dispatch( profileToggleIsFetching( true ) )
+	let response = await profileAPI.getStatus( userId )
+	
+	dispatch( setStatus( response.data ) )
+	dispatch( profileToggleIsFetching( false ) )
 }
 
-export const updateStatus = ( status ) => {
-	return ( dispatch ) => {
-		dispatch( profileToggleIsFetching( true ) )
+export const updateStatus = ( status ) => async ( dispatch ) => {
+	dispatch( profileToggleIsFetching( true ) )
 
-		profileAPI.updateStatus( status ).then( data => {
-			if ( data.resultCode === 0 ) {
-				dispatch( setStatus( status ) )
-				dispatch( profileToggleIsFetching( false ) )
-			}	else {
-				console.error( 'UPDATING STATUS ERROR!!!' )
-				dispatch( profileToggleIsFetching( false ) )
-			}
-		} )
+	let response = await profileAPI.updateStatus( status )
+
+	if ( response.data.resultCode === 0 ) {
+		dispatch( setStatus( status ) )
+		dispatch( profileToggleIsFetching( false ) )
+	}	else {
+		console.error( 'UPDATING STATUS ERROR!!!' )
+		dispatch( profileToggleIsFetching( false ) )
 	}
 }

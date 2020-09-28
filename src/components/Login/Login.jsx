@@ -1,7 +1,7 @@
 import React from 'react'
 import { reduxForm, Field } from 'redux-form'
 import s from './Login.module.scss'
-import { Input } from '../common/FormControls/FormControls'
+import { Input, createField } from '../common/FormControls/FormControls'
 import { required, maxLengthCreator } from '../../utils/validators/validators'
 import { connect } from 'react-redux'
 import { login, logout } from '../../redux/auth-reducer'
@@ -9,34 +9,14 @@ import { Redirect } from 'react-router-dom'
 
 const maxLength30 = maxLengthCreator( 30 )
 
-const LoginForm = ( props ) => {
-	const { handleSubmit } = props
-
+const LoginForm = ( { handleSubmit, onSubmit, error } ) => {
     return (
-    	<form id = "login-form" className = { s.form } onSubmit = { handleSubmit( props.onSubmit ) }>
+    	<form id = "login-form" className = { s.form } onSubmit = { handleSubmit( onSubmit ) }>
+    		{ createField( 'E-mail', 'email', 'input', [required, maxLength30], Input, null, null ) }
+            { createField( 'Пароль', 'password', 'input', [required, maxLength30], Input, { type: 'password' }, null ) }
+            { createField( null, 'rememberMe', 'checkbox', [], Input, { type: 'checkbox' }, 'Запомнить меня' ) }
     		<div className = { s['form-field'] }>
-    			<Field  name = "email"
-                        className = "input"
-                        component = { Input }
-                        placeholder = "E-mail"
-                        validate = { [required, maxLength30] } />
-    		</div>
-    		<div className = { s['form-field'] }>
-    			<Field  name = "password"
-                        className = "input"
-                        component = { Input }
-                        placeholder = "Пароль"
-                        type = "password"
-                        validate = { [required, maxLength30] } />
-    		</div>
-    		<div className = { s['form-field'] }>
-    			<Field  name = "rememberMe"
-                        className = { s.checkbox }
-                        component = "input"
-                        type = "checkbox" /> Запомнить меня
-    		</div>
-    		<div className = { s['form-field'] }>
-                { props.error && <div className = { s['form-error'] }>{ props.error }</div> }
+                { error && <div className = { s['form-error'] }>{ error }</div> }
 
     			<button type = "submit" form = "login-form" className = "button">
     				Войти

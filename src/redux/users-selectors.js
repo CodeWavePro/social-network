@@ -1,5 +1,3 @@
-import { createSelector } from 'reselect'
-
 export const getUsersArray = ( state ) => {
 	return state.usersPage.users
 }

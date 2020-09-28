@@ -30,7 +30,7 @@ const ProfileAddPostForm = props => {
 
 const ProfileAddPostReduxForm = reduxForm( { form: 'profile-add-post' } )( ProfileAddPostForm )
 
-const ProfilePosts = ( props ) => {
+const ProfilePosts = props => {
 	let posts = props.profilePage.postsData.map(
 		p => <Post	key = { p.id }
 					name = { p.name }
