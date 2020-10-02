@@ -9,7 +9,8 @@ let Users = ( props ) => {
 				<Paginator	currentPage = { props.currentPage }
 							totalUsersCount = { props.totalUsersCount }
 							pageSize = { props.pageSize }
-							onPageChanged = { props.onPageChanged } />
+							onPageChanged = { props.onPageChanged }
+							portionSize = "10" />
 
 		        <div className = { s.users }>
 		        	{

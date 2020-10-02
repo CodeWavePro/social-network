@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Route, Redirect, withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
+import { Route, Redirect, withRouter, BrowserRouter } from 'react-router-dom'
+import { connect, Provider } from 'react-redux'
 import { compose } from 'redux'
+import store from './redux/redux-store'
 
 import { initializeApp } from './redux/app-reducer'
 
@@ -12,11 +13,11 @@ import Footer from './components/Footer/Footer'
 import News from './components/News/News'
 import Music from './components/Music/Music'
 import Settings from './components/Settings/Settings'
-
 import HeaderContainer from './components/Header/HeaderContainer'
-import ProfileContainer from './components/Profile/ProfileContainer'
-import DialogsContainer from './components/Dialogs/DialogsContainer'
-import UsersContainer from './components/Users/UsersContainer'
+
+const ProfileContainer = React.lazy( () => import( './components/Profile/ProfileContainer' ) )
+const DialogsContainer = React.lazy( () => import( './components/Dialogs/DialogsContainer' ) )
+const UsersContainer = React.lazy( () => import( './components/Users/UsersContainer' ) )
 
 class App extends Component {
     componentDidMount() {
@@ -35,17 +36,20 @@ class App extends Component {
                     <Sidebar />
 
                     <div className = "main">
+                        <React.Suspense fallback = { <Preloader /> }>
+                            <Route path = "/dialogs" render = {
+                                () => <DialogsContainer />
+                            } />
+                            <Route path = "/profile/:userId?" render = {
+                                () => <ProfileContainer />
+                            } />
+                            <Route path = "/users" render = {
+                                () => <UsersContainer />
+                            } />
+                        </React.Suspense>
+
                         <Route exact path = "/" render = {
                             () => <Redirect to = "/news" />
-                        } />
-                        <Route path = "/dialogs" render = {
-                            () => <DialogsContainer />
-                        } />
-                        <Route path = "/profile/:userId?" render = {
-                            () => <ProfileContainer />
-                        } />
-                        <Route path = "/users" render = {
-                            () => <UsersContainer />
                         } />
                         <Route path = "/news" component = { News } />
                         <Route path = "/music" component = { Music } />
@@ -66,7 +70,19 @@ let mapStateToProps = ( state ) => ( {
     initialized: state.app.initialized
 } )
 
-export default compose(
+let AppContainer = compose(
     withRouter,
     connect( mapStateToProps, { initializeApp } )
 )( App )
+
+const SocialNetworkApp = props => {
+    return (
+        <BrowserRouter>
+            <Provider store = { store }>
+                <AppContainer />
+            </Provider>
+        </BrowserRouter>
+    )
+}
+
+export default SocialNetworkApp
